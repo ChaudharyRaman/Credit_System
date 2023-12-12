@@ -1,0 +1,28 @@
+{
+  "name": "creditapprovalsystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "start:dev": "nodemon server.js",
+    "seed": "node ./src/helper/seed.js",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:seed":"node ./src/helper/customer_seed.js && node ./src/helper/loan_seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.7.0",
+    "body-parser": "^1.20.2",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.0"
+  }
+}

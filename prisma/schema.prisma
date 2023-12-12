@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = env("postgresql://postgres:postgres@localhost:5432/credit_system")
+  url      = "postgresql://postgres:postgres@postgres-db:5432/credit_system?connect_timeout=300"
+}
+
+// schema.prisma
+
+model User {
+  id             Int    @id @default(autoincrement())
+  customer_id    Int    @unique
+  first_name     String
+  last_name      String
+  age            Int
+  phone_number   String
+  monthly_salary Int
+  approved_limit Int
+
+  // Reference to the Loan model by customer_id
+  loans Loan[]
+}
+
+model Loan {
+  id                Int    @id @default(autoincrement())
+  loan_id           Int    @unique
+  loan_amount       Int
+  tenure            Int
+  interest_rate     Float
+  monthly_payment   Int
+  emis_paid_on_time Int
+  start_date        String // You may want to use a DateTime type if possible
+  end_date          String // You may want to use a DateTime type if possible
+
+  // Reference to the User model by customer_id
+  customer_id Int
+  user        User @relation(fields: [customer_id], references: [customer_id], onDelete: Cascade)
+}
